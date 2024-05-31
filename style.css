@@ -16,16 +16,21 @@ h1 {
 }
 
 #menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
 .menu-item {
+    flex: 0 1 30%;
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px 0;
     background-color: #fff3e6;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .menu-item img {
@@ -96,4 +101,16 @@ button:hover {
 
 .delete-btn:hover {
     background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+    .menu-item {
+        flex: 0 1 45%; /* Duas colunas em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-item {
+        flex: 0 1 100%; /* Uma coluna em telas muito pequenas */
+    }
 }
