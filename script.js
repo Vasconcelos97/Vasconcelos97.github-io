@@ -30,17 +30,25 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const newItem = {
-            name: form.name.value,
-            price: parseFloat(form.price.value),
-            description: form.description.value,
-            image: form.image.value
+        const fileInput = form.image;
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const newItem = {
+                name: form.name.value,
+                price: parseFloat(form.price.value),
+                description: form.description.value,
+                image: e.target.result // URL da imagem carregada
+            };
+
+            addItemToMenu(newItem);
+
+            modal.style.display = "none";
+            form.reset();
         };
 
-        addItemToMenu(newItem);
-
-        modal.style.display = "none";
-        form.reset();
+        reader.readAsDataURL(file);
     });
 
     function addItemToMenu(item) {
