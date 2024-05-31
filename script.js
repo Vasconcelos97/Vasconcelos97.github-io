@@ -5,6 +5,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById("add-item-form");
     const menuItemsContainer = document.getElementById('menu-items');
 
+    // Função para adicionar item ao menu
+    function addItemToMenu(item) {
+        const div = document.createElement('div');
+        div.className = 'menu-item';
+        div.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
+            <p><strong>Preço:</strong> R$ ${item.price.toFixed(2)}</p>
+        `;
+        menuItemsContainer.appendChild(div);
+    }
+
+    // Carregar itens do localStorage
+    function loadMenuItems() {
+        const items = JSON.parse(localStorage.getItem('menuItems')) || [];
+        items.forEach(item => addItemToMenu(item));
+    }
+
+    // Salvar item no localStorage
+    function saveMenuItem(item) {
+        const items = JSON.parse(localStorage.getItem('menuItems')) || [];
+        items.push(item);
+        localStorage.setItem('menuItems', JSON.stringify(items));
+    }
+
     btn.onclick = function () {
         modal.style.display = "block";
     }
@@ -18,14 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = "none";
         }
     }
-
-    fetch('menu_items.json')
-        .then(response => response.json())
-        .then(items => {
-            items.forEach(item => {
-                addItemToMenu(item);
-            });
-        });
 
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -43,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             addItemToMenu(newItem);
+            saveMenuItem(newItem);
 
             modal.style.display = "none";
             form.reset();
@@ -51,15 +70,6 @@ document.addEventListener('DOMContentLoaded', function () {
         reader.readAsDataURL(file);
     });
 
-    function addItemToMenu(item) {
-        const div = document.createElement('div');
-        div.className = 'menu-item';
-        div.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p>${item.description}</p>
-            <p><strong>Preço:</strong> R$ ${item.price.toFixed(2)}</p>
-        `;
-        menuItemsContainer.appendChild(div);
-    }
+    // Carregar itens ao iniciar
+    loadMenuItems();
 });
