@@ -12,13 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
         div.innerHTML = `
             <img src="${item.image}" alt="${item.name}">
             <h3>${item.name}</h3>
-            <p>${item.description}</p>
+            <p class="description">${item.description}</p>
             <p><strong>Preço:</strong> R$ ${item.price.toFixed(2)}</p>
             <button class="delete-btn" data-index="${index}">Excluir</button>
         `;
         menuItemsContainer.appendChild(div);
     }
-
 
     function loadMenuItems() {
         const items = JSON.parse(localStorage.getItem('menuItems')) || [];
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('menuItems', JSON.stringify(items));
         renderMenuItems();
     }
-
 
     function renderMenuItems() {
         menuItemsContainer.innerHTML = '';
@@ -90,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
             deleteMenuItem(index);
         }
     });
-
 
     renderMenuItems();
 });

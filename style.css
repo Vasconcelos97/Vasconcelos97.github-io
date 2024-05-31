@@ -103,14 +103,20 @@ button:hover {
     background-color: #c0392b;
 }
 
+.menu-item .description {
+    max-height: 60px;
+    overflow: hidden;
+}
+
+
 @media (max-width: 768px) {
     .menu-item {
-        flex: 0 1 45%; /* Duas colunas em telas menores */
+        flex: 0 1 45%;
     }
 }
 
 @media (max-width: 480px) {
     .menu-item {
-        flex: 0 1 100%; /* Uma coluna em telas muito pequenas */
+        flex: 0 1 100%;
     }
 }
